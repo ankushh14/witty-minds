@@ -22,7 +22,6 @@ import { Button } from "../ui/button";
 
 const Navigation = () => {
   const { resolvedTheme } = useTheme();
-  console.log(resolvedTheme);
   return (
     <nav
       className={`w-full p-2 sm:p-3 flex flex-ro justify-between items-center`}
@@ -31,7 +30,7 @@ const Navigation = () => {
       <div className="flex flex-1 flex-row justify-end items-center">
         <ThemeToggle />
         <NavSheet />
-        <Button variant={"ghost"} size={"icon"}>
+        <Button variant={"ghost"} size={"icon"} aria-label="User profile">
           <SignedIn>
             <UserButton
               appearance={{
