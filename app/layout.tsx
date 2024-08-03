@@ -1,6 +1,7 @@
 import "@/styles/globals.css";
 import { Inter as FontSans } from "next/font/google";
 
+import { Toaster } from "@/components/ui/toaster";
 import ClerkLocalProvider from "@/context/ClerkProvider";
 import { ThemeProvider } from "@/context/ThemeProvider";
 import { cn } from "@/lib/utils";
@@ -32,7 +33,10 @@ export default function RootLayout({ children }: RootLayoutProps) {
           enableSystem
           disableTransitionOnChange
         >
-          <ClerkLocalProvider>{children}</ClerkLocalProvider>
+          <ClerkLocalProvider>
+            {children}
+            <Toaster />
+          </ClerkLocalProvider>
         </ThemeProvider>
       </body>
     </html>
