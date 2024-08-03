@@ -1,0 +1,56 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("POSTGRES_PRISMA_URL")
+  directUrl = env("POSTGRES_URL_NON_POOLING")
+}
+
+model User {
+  id        String    @id @default(cuid())
+  name      String?
+  email     String?   @unique
+  profile   String?
+  description String?
+  createdAt DateTime  @default(now()) @map(name: "created_at")
+  updatedAt DateTime  @updatedAt @map(name: "updated_at")
+  posts     Post[]
+  bookmarks Post[]    @relation("UserBookmarks")
+  following   User[]    @relation("UserFollowers")
+  followedBy  User[]    @relation("UserFollowers")
+  likes     Post[]    @relation("UserLikes")
+  Comment   Comment[]
+
+  @@map(name: "users")
+}
+
+model Post {
+  id           String    @id @default(cuid())
+  title        String
+  description  String
+  createdAt    DateTime  @default(now()) @map(name: "created_at")
+  updatedAt    DateTime  @updatedAt @map(name: "updated_at")
+  userId       String
+  author       User      @relation(fields: [userId], references: [id])
+  bookmarkedBy User[]    @relation("UserBookmarks")
+  likedBy      User[]    @relation("UserLikes")
+  Comment      Comment[]
+
+  @@unique([userId, createdAt])
+  @@map("posts")
+}
+
+model Comment {
+  id        String    @id @default(cuid())
+  userID      String
+  user        User     @relation(fields: [userID], references: [id])
+  postID      String
+  post        Post     @relation(fields: [postID], references: [id])
+  content     String
+  userProfile String
+  createdAt   DateTime @default(now()) @map(name: "created_at")
+
+  @@map("comments")
+}
