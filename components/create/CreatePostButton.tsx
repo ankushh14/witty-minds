@@ -1,5 +1,5 @@
 import { Plus } from "lucide-react";
-import { Button } from "../ui/button";
+import { buttonVariants } from "../ui/button";
 import {
   Tooltip,
   TooltipContent,
@@ -12,13 +12,14 @@ const CreatePostButton = () => {
     <TooltipProvider>
       <Tooltip>
         <TooltipTrigger asChild>
-          <Button
-            variant={"secondary"}
+          <div
             aria-label="Create post button"
-            className="fixed right-3 bottom-8 md:right-16 md:bottom-16 rounded-full py-6"
+            className={`fixed right-3 bottom-8 md:right-16 md:bottom-16 py-6 ${buttonVariants(
+              { variant: "secondary" }
+            )} rounded-full`}
           >
             <Plus size={24} />
-          </Button>
+          </div>
         </TooltipTrigger>
         <TooltipContent>
           <p>Create new post</p>

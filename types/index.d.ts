@@ -1,3 +1,8 @@
 declare type RootLayoutProps = {
-    children : React.ReactNode
-}
+  children: React.ReactNode;
+};
+
+declare type ActionsReturnType = {
+  message: string;
+  valid: boolean;
+};
