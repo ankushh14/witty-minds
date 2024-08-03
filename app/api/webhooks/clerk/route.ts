@@ -62,10 +62,27 @@ export async function POST(req: Request) {
     };
     await prisma.user.create({
       data: {
+        id: user.clerkUserId,
         email: user.email,
         name: `${user.firstName} ${user.lastName}`,
         updatedAt: new Date(),
         profile: user.imageUrl,
+      },
+    });
+  }
+
+  if (eventType === "user.deleted") {
+    const { id } = evt.data;
+
+    if (!id) {
+      return new Response("Error occurred -- missing data", {
+        status: 400,
+      });
+    }
+
+    await prisma.user.delete({
+      where: {
+        id,
       },
     });
   }
