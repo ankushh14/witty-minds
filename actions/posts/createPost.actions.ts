@@ -3,7 +3,7 @@
 import prisma from "@/prisma/prisma";
 import { ActionsReturnType } from "@/types";
 import { currentUser } from "@clerk/nextjs/server";
-import { revalidatePath } from "next/cache";
+import { revalidateTag } from "next/cache";
 
 export const createPost = async (
   prevState: ActionsReturnType,
@@ -28,7 +28,7 @@ export const createPost = async (
         updatedAt: new Date(),
       },
     });
-    revalidatePath("/feed");
+    revalidateTag("posts");
     return { message: "Create succesful!", valid: true };
   } catch (error) {
     console.error(error);
