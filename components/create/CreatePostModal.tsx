@@ -10,16 +10,17 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { useEffect, useState } from "react";
+import { createToast } from "@/lib/utils";
+import { useEffect, useRef, useState } from "react";
 import { useFormState, useFormStatus } from "react-dom";
 import { Button } from "../ui/button";
 import { Label } from "../ui/label";
 import { Textarea } from "../ui/textarea";
-import { toast } from "../ui/use-toast";
 import CreatePostButton from "./CreatePostButton";
 
 const CreatePostModal = () => {
   const [dialog, setDialog] = useState(false);
+  const formRef = useRef<HTMLFormElement>(null);
 
   const [state, formAction] = useFormState(createPost, {
     message: "",
@@ -28,20 +29,16 @@ const CreatePostModal = () => {
 
   useEffect(() => {
     if (state.valid && state.message.length) {
-      toast({
-        "aria-atomic": "true",
-        role: "alert",
-        "aria-live": "assertive",
+      formRef.current?.reset();
+      createToast({
+        variant: "default",
         title: state.message,
       });
       setDialog(false);
     } else if (!state.valid && state.message.length) {
-      toast({
-        "aria-atomic": "true",
-        role: "alert",
-        "aria-live": "assertive",
-        title: state.message,
+      createToast({
         variant: "destructive",
+        title: state.message,
       });
     } else {
       return;
@@ -67,6 +64,7 @@ const CreatePostModal = () => {
         <form
           className="w-full flex flex-col space-y-4 mt-2"
           action={formAction}
+          ref={formRef}
         >
           <div className="w-full flex flex-col space-y-6 justify-center items-center">
             <div className="w-full flex flex-col space-y-3">
