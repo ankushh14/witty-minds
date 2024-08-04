@@ -11,9 +11,11 @@ export default function LandingPage() {
       )}
     >
       <header className={cn("flex flex-row")}>
-        <h1 className="text-4xl font-bold font-mono">{projectName}</h1>
+        <h1 className="text-4xl font-bold font-mono text-center">
+          {projectName}
+        </h1>
       </header>
-      <p className="text-center">{projectDescription}</p>
+      <p className="text-center p-2">{projectDescription}</p>
       <Button asChild variant={"secondary"}>
         <Link href={"/feed"}>{"Go To Feed ->"}</Link>
       </Button>
