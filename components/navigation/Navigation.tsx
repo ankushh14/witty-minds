@@ -24,7 +24,7 @@ const Navigation = () => {
   const { resolvedTheme } = useTheme();
   return (
     <nav
-      className={`w-full p-2 sm:p-3 flex flex-ro justify-between items-center`}
+      className={`w-full p-2 sm:p-3 flex flex-ro justify-between items-center sticky top-0 backdrop-blur`}
     >
       <NavLogoComponent />
       <div className="flex flex-1 flex-row justify-end items-center">
@@ -83,10 +83,10 @@ const NavSheet = () => {
   );
 };
 
-const NavLogoComponent = () => {
+export const NavLogoComponent = () => {
   return (
     <Link
-      href={"/feed/recent"}
+      href={"/feed"}
       className="w-fit flex flex-row space-x-2 justify-center items-center cursor-pointer"
     >
       <Image src={Logo} alt="Witty-minds logo" width={32} height={32} />
