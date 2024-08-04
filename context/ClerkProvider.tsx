@@ -1,4 +1,5 @@
 import Spinner from "@/components/ui/Spinner";
+import { RootLayoutProps } from "@/types";
 import { ClerkLoaded, ClerkLoading, ClerkProvider } from "@clerk/nextjs";
 
 export default function ClerkLocalProvider({ children }: RootLayoutProps) {

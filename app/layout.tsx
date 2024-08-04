@@ -5,6 +5,7 @@ import { Toaster } from "@/components/ui/toaster";
 import ClerkLocalProvider from "@/context/ClerkProvider";
 import { ThemeProvider } from "@/context/ThemeProvider";
 import { cn } from "@/lib/utils";
+import { RootLayoutProps } from "@/types";
 import { Metadata } from "next";
 
 const fontSans = FontSans({

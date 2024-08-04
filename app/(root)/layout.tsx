@@ -1,5 +1,6 @@
 import CreatePostModal from "@/components/create/CreatePostModal";
 import Navigation from "@/components/navigation/Navigation";
+import { RootLayoutProps } from "@/types";
 import { RedirectToSignIn } from "@clerk/nextjs";
 import { currentUser } from "@clerk/nextjs/server";
 
