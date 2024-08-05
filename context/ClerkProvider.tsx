@@ -15,7 +15,9 @@ export default function ClerkLocalProvider({ children }: RootLayoutProps) {
       publishableKey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}
     >
       <ClerkLoading>
-        <Spinner />
+        <div className="w-full h-full min-h-dvh flex justify-center items-center">
+          <Spinner />
+        </div>
       </ClerkLoading>
       <ClerkLoaded>{children}</ClerkLoaded>
     </ClerkProvider>
