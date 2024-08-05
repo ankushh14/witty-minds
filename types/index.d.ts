@@ -77,3 +77,25 @@ declare type RemoveFollowProps = {
   fromUserID: string;
   toUserID: string;
 };
+
+declare type Profile = {
+  id: string;
+  name: string | null;
+  email: string | null;
+  profile: string | null;
+  description: string | null;
+  createdAt: Date;
+  updatedAt: Date;
+  posts_count: number;
+  posts: {
+    id: string;
+    title: string;
+    description: string;
+    createdAt: Date;
+    updatedAt: Date;
+    userId: string;
+  }[];
+  followers: User[];
+  followersCount: number;
+  followingCount: number;
+};
