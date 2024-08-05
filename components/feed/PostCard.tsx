@@ -27,7 +27,6 @@ import { ScrollArea } from "../ui/scroll-area";
 import { Textarea } from "../ui/textarea";
 
 const PostCard = (props: PostCardProps) => {
-  console.log(props);
   const created = new Intl.DateTimeFormat(undefined, {
     dateStyle: "short",
   }).format(new Date(props.createdAt));
