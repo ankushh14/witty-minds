@@ -13,7 +13,7 @@ const Followpage = async () => {
       className="w-full flex flex-col space-y-4 py-4 justify-center items-center"
       aria-label="Posts of people you follow"
     >
-      {posts.valid &&
+      {posts.valid && posts.data?.length ? (
         posts.data?.map((post) => {
           return (
             <PostCard
@@ -32,7 +32,10 @@ const Followpage = async () => {
               likedBy={post.likedBy}
             />
           );
-        })}
+        })
+      ) : (
+        <h1 className="text-xl my-6">Nothing to show here...</h1>
+      )}
     </div>
   );
 };
