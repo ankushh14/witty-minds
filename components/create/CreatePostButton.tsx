@@ -17,6 +17,7 @@ const CreatePostButton = () => {
             className={`fixed right-3 bottom-8 md:right-16 md:bottom-16 py-6 ${buttonVariants(
               { variant: "secondary" }
             )} rounded-full`}
+            tabIndex={0}
           >
             <Plus size={24} />
           </div>
