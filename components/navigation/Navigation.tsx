@@ -8,7 +8,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { projectName } from "@/lib/data";
-import { SignedIn, UserButton } from "@clerk/nextjs";
+import { SignedIn, UserButton, useUser } from "@clerk/nextjs";
 import { dark } from "@clerk/themes";
 import { AlignRight, Bookmark, LayoutList } from "lucide-react";
 import { useTheme } from "next-themes";
@@ -22,9 +22,10 @@ import { Button } from "../ui/button";
 
 const Navigation = () => {
   const { resolvedTheme } = useTheme();
+  const { user } = useUser();
   return (
     <nav
-      className={`w-full p-2 sm:p-3 flex flex-ro justify-between items-center sticky top-0 backdrop-blur`}
+      className={`w-full p-2 sm:p-3 flex flex-ro justify-between items-center sticky top-0 backdrop-blur z-10`}
     >
       <NavLogoComponent />
       <div className="flex flex-1 flex-row justify-end items-center">
@@ -36,7 +37,7 @@ const Navigation = () => {
               appearance={{
                 baseTheme: resolvedTheme === "dark" ? dark : undefined,
               }}
-              userProfileUrl="/profile"
+              userProfileUrl={`/profile/${user?.id}`}
             />
           </SignedIn>
         </Button>
@@ -63,20 +64,16 @@ const NavSheet = () => {
           </SheetTitle>
         </SheetHeader>
         <div className="w-full flex flex-col space-y-2 mt-12">
-          <SheetClose asChild>
-            <SideBarLink
-              href={"/feed"}
-              name="Feed"
-              icon={<LayoutList size={16} />}
-            />
-          </SheetClose>
-          {/* <SheetClose> */}
+          <SideBarLink
+            href={"/feed"}
+            name="Feed"
+            icon={<LayoutList size={16} />}
+          />
           <SideBarLink
             href={"/bookmarks"}
             name="Bookmarks"
             icon={<Bookmark size={16} />}
           />
-          {/* </SheetClose> */}
         </div>
       </SheetContent>
     </Sheet>
