@@ -21,6 +21,7 @@ import CreatePostButton from "./CreatePostButton";
 const CreatePostModal = () => {
   const [dialog, setDialog] = useState(false);
   const formRef = useRef<HTMLFormElement>(null);
+  const titleRef = useRef<HTMLTextAreaElement>(null);
 
   const [state, formAction] = useFormState(createPost, {
     message: "",
@@ -29,16 +30,17 @@ const CreatePostModal = () => {
 
   useEffect(() => {
     if (state.valid && state.message.length) {
-      formRef.current?.reset();
       createToast({
         variant: "default",
         title: state.message,
+        description: titleRef.current?.value,
       });
       setDialog(false);
     } else if (!state.valid && state.message.length) {
       createToast({
         variant: "destructive",
         title: state.message,
+        description: titleRef.current?.value,
       });
     } else {
       return;
@@ -74,6 +76,7 @@ const CreatePostModal = () => {
                 name="title"
                 placeholder="Type your title here"
                 rows={2}
+                ref={titleRef}
               />
             </div>
             <div className="w-full flex flex-col space-y-3">
