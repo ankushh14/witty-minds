@@ -17,6 +17,8 @@ export const addFollow = async ({
       data: { following: { connect: { id: toUserID } } },
     });
     revalidateTag("posts");
+    revalidateTag("profile");
+    revalidateTag("follow");
     return { message: "follow succesful!", valid: true };
   } catch (error) {
     console.log(error);
@@ -39,6 +41,9 @@ export const removeFollow = async ({
       where: { id: fromUserID },
       data: { following: { disconnect: { id: toUserID } } },
     });
+    revalidateTag("posts");
+    revalidateTag("profile");
+    revalidateTag("follow");
     return { message: "unfollow succesful!", valid: true };
   } catch (error) {
     console.log(error);
