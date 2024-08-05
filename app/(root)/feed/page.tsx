@@ -1,8 +1,13 @@
 import { getRecentPosts } from "@/actions/posts/getPosts.actions";
 import PostCard from "@/components/feed/PostCard";
+import { currentUser } from "@clerk/nextjs/server";
 
 const Feedpage = async () => {
-  const posts = await getRecentPosts();
+  const clerkUser = await currentUser();
+  if (!clerkUser?.id) {
+    return;
+  }
+  const posts = await getRecentPosts({ id: clerkUser.id });
   return (
     <div
       className="w-full flex flex-col space-y-4 py-4 justify-center items-center"
@@ -20,6 +25,11 @@ const Feedpage = async () => {
               key={post.postID}
               userId={post.author.id}
               following={post.following}
+              bookmarkCount={post.bookmarkCount}
+              bookmarkedBy={post.bookmarkedBy}
+              comments={post.comments}
+              likeCount={post.likeCount}
+              likedBy={post.likedBy}
             />
           );
         })}
