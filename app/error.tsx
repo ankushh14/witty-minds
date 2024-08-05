@@ -1,7 +1,7 @@
 "use client";
 
 import { NavLogoComponent } from "@/components/navigation/Navigation";
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -10,6 +10,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import Link from "next/link";
 
 export default function Error({
   error,
@@ -38,9 +39,13 @@ export default function Error({
           >
             Reload
           </Button>
-          <Button variant={"secondary"} aria-label="Go to feed">
+          <Link
+            href={"/feed"}
+            className={`${buttonVariants({ variant: "secondary" })}`}
+            aria-label="Go to feed"
+          >
             Go to Feed
-          </Button>
+          </Link>
         </CardFooter>
       </Card>
     </main>
