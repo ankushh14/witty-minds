@@ -65,7 +65,7 @@ const NavSheet = () => {
         <div className="w-full flex flex-col space-y-2 mt-12">
           <SheetClose asChild>
             <SideBarLink
-              href={"/feed/recent"}
+              href={"/feed"}
               name="Feed"
               icon={<LayoutList size={16} />}
             />
