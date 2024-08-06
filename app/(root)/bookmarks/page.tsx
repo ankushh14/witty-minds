@@ -10,7 +10,7 @@ const Bookmarkpage = async () => {
   const posts = await getBookmarkedPosts({ id: clerkUser?.id });
   return (
     <div
-      className="w-full flex flex-row flex-wrap py-4 gap-4 justify-center items-start"
+      className="w-full flex flex-row flex-wrap py-4 px-2 gap-4 justify-center items-start"
       aria-label="Bookmarked posts"
     >
       {posts.valid &&

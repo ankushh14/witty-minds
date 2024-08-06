@@ -57,7 +57,7 @@ const Profileposts = ({ posts, focusId }: Props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
-    <div className="w-full flex flex-col justify-center items-center space-y-4 py-4">
+    <div className="w-full flex flex-col justify-center items-center space-y-4 py-4 px-2">
       {posts.length &&
         posts.map((post) => {
           return (

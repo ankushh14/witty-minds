@@ -10,7 +10,7 @@ const Feedpage = async () => {
   const posts = await getRecentPosts({ id: clerkUser.id });
   return (
     <div
-      className="w-full flex flex-col space-y-4 py-4 justify-center items-center"
+      className="w-full flex flex-col space-y-4 py-4 px-2 justify-center items-center"
       aria-label="Recent posts"
     >
       {posts.valid &&
