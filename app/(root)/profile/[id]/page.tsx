@@ -112,13 +112,23 @@ const ProfilePage = async ({ params }: { params: { id: string } }) => {
             dateStyle: "short",
           }).format(new Date(post.createdAt));
           return (
-            <Card key={post.id} className="w-full max-w-[300px]">
-              <CardHeader>
-                <CardTitle>{post.title}</CardTitle>
-                <CardDescription>{created}</CardDescription>
-              </CardHeader>
-              <CardContent>{post.description}</CardContent>
-            </Card>
+            <Link
+              href={{
+                pathname: `/profile/${params.id}/posts`,
+                query: {
+                  post: post.id,
+                },
+              }}
+              key={post.id}
+            >
+              <Card className="w-full max-w-[300px]">
+                <CardHeader>
+                  <CardTitle>{post.title}</CardTitle>
+                  <CardDescription>{created}</CardDescription>
+                </CardHeader>
+                <CardContent>{post.description}</CardContent>
+              </Card>
+            </Link>
           );
         })}
       </div>
