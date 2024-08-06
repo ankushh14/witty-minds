@@ -202,9 +202,7 @@ export const getFollowingPosts = unstable_cache(
 export const getBookmarkedPosts = unstable_cache(
   async ({ id }: { id: string }): Promise<RecentPostsReturn> => {
     try {
-      const limit = 10;
       const data = await prisma.post.findMany({
-        take: limit + 1,
         where: {
           bookmarkedBy: {
             some: {
