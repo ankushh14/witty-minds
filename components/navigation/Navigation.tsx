@@ -18,7 +18,7 @@ import { usePathname } from "next/navigation";
 import React from "react";
 import Logo from "../../public/witty-minds-240.svg";
 import ThemeToggle from "../themetoggle/ThemeToggle";
-import { Button } from "../ui/button";
+import { Button, buttonVariants } from "../ui/button";
 
 const Navigation = () => {
   const { resolvedTheme } = useTheme();
@@ -50,9 +50,12 @@ const NavSheet = () => {
   return (
     <Sheet>
       <SheetTrigger asChild>
-        <Button variant="ghost" size="icon" className="p-0">
+        <div
+          className={`${buttonVariants({ variant: "ghost", size: "icon" })}`}
+          aria-label="Open side navigation"
+        >
           <AlignRight />
-        </Button>
+        </div>
       </SheetTrigger>
       <SheetContent
         className="border-none"
