@@ -59,7 +59,7 @@ const PostCard = (props: PostCardProps) => {
   };
 
   return (
-    <Card className={`w-[300px] md:w-[450px]`}>
+    <Card className={`w-[300px] md:w-[450px] scroll-mt-16`} id={props.id}>
       <CardHeader className="flex flex-row justify-center items-center">
         <Link
           href={`/profile/${encodeURIComponent(props.author.id)}`}
