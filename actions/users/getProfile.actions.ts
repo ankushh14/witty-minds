@@ -19,6 +19,9 @@ export const getProfile = unstable_cache(
     });
     const posts = await prisma.post.findMany({
       where: { author: { id: user?.id } },
+      orderBy: {
+        createdAt: "desc",
+      },
     });
     if (user) {
       const dataToSend = {
