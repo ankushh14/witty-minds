@@ -29,7 +29,6 @@ export const mutateLike = async ({
       };
     }
   } catch (error) {
-    console.log(error);
     return {
       message: "Like mutate unsuccesful!",
       valid: false,

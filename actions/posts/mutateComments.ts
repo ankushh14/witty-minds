@@ -32,7 +32,6 @@ export const addComment = async ({
       data: comment,
     };
   } catch (error) {
-    console.log(error);
     return {
       message: "Some unknown error occured",
       valid: false,

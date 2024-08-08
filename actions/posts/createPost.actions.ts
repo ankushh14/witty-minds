@@ -32,7 +32,6 @@ export const createPost = async (
     revalidateTag("profile");
     return { message: "Create succesful!", valid: true };
   } catch (error) {
-    console.error(error);
     return {
       message: "Some unknown server error",
       valid: false,
@@ -67,7 +66,6 @@ export const deletePost = async ({
     revalidateTag("profile");
     return { message: `${response.title} deleted!!`, valid: true };
   } catch (error) {
-    console.error(error);
     return {
       message: "Some unknown server error",
       valid: false,

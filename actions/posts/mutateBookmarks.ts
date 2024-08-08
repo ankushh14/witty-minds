@@ -29,7 +29,6 @@ export const mutateBookmarks = async ({
       };
     }
   } catch (error) {
-    console.log(error);
     return {
       message: "Bookmark update unsuccesful!",
       valid: false,

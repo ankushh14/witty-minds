@@ -21,7 +21,6 @@ export const addFollow = async ({
     revalidateTag("follow");
     return { message: "follow succesful!", valid: true };
   } catch (error) {
-    console.log(error);
     return {
       message: "Some unknown error occured",
       valid: false,
@@ -46,7 +45,6 @@ export const removeFollow = async ({
     revalidateTag("follow");
     return { message: "unfollow succesful!", valid: true };
   } catch (error) {
-    console.log(error);
     return {
       message: "Some unknown error occured",
       valid: false,
