@@ -1,5 +1,5 @@
 import { getRecentPosts } from "@/actions/posts/getPosts.actions";
-import PostCard from "@/components/feed/PostCard";
+import Posts from "@/components/feed/Posts";
 import { currentUser } from "@clerk/nextjs/server";
 
 const Feedpage = async () => {
@@ -9,30 +9,8 @@ const Feedpage = async () => {
   }
   const posts = await getRecentPosts({ id: clerkUser.id });
   return (
-    <div
-      className="w-full flex flex-col space-y-4 py-4 px-2 justify-center items-center"
-      aria-label="Recent posts"
-    >
-      {posts.valid &&
-        posts.data?.map((post) => {
-          return (
-            <PostCard
-              author={post.author}
-              createdAt={post.createdAt}
-              description={post.description}
-              id={post.postID}
-              title={post.title}
-              key={post.postID}
-              userId={post.author.id}
-              following={post.following}
-              bookmarkCount={post.bookmarkCount}
-              bookmarkedBy={post.bookmarkedBy}
-              comments={post.comments}
-              likeCount={post.likeCount}
-              likedBy={post.likedBy}
-            />
-          );
-        })}
+    <div className="w-full" aria-label="Recent posts">
+      {posts.valid && <Posts postsData={posts.data!} />}
     </div>
   );
 };

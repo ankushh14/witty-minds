@@ -1,5 +1,5 @@
 import { getBookmarkedPosts } from "@/actions/posts/getPosts.actions";
-import PostCard from "@/components/feed/PostCard";
+import Posts from "@/components/feed/Posts";
 import { currentUser } from "@clerk/nextjs/server";
 
 const Bookmarkpage = async () => {
@@ -9,30 +9,14 @@ const Bookmarkpage = async () => {
   }
   const posts = await getBookmarkedPosts({ id: clerkUser?.id });
   return (
-    <div
-      className="w-full flex flex-row flex-wrap py-4 px-2 gap-4 justify-center items-start"
-      aria-label="Bookmarked posts"
-    >
-      {posts.valid &&
-        posts.data?.map((post) => {
-          return (
-            <PostCard
-              author={post.author}
-              createdAt={post.createdAt}
-              description={post.description}
-              id={post.postID}
-              title={post.title}
-              key={post.postID}
-              userId={post.author.id}
-              following={post.following}
-              bookmarkCount={post.bookmarkCount}
-              bookmarkedBy={post.bookmarkedBy}
-              comments={post.comments}
-              likeCount={post.likeCount}
-              likedBy={post.likedBy}
-            />
-          );
-        })}
+    <div className="w-full" aria-label="Bookmarked posts">
+      {posts.valid && posts.data?.length ? (
+        <Posts postsData={posts.data!} flexWrap />
+      ) : (
+        <h1 className="text-xl my-6 text-center w-full">
+          Nothing to show here...
+        </h1>
+      )}
     </div>
   );
 };

@@ -1,5 +1,5 @@
 import { getFollowingPosts } from "@/actions/posts/getPosts.actions";
-import PostCard from "@/components/feed/PostCard";
+import Posts from "@/components/feed/Posts";
 import { currentUser } from "@clerk/nextjs/server";
 
 const Followpage = async () => {
@@ -9,32 +9,13 @@ const Followpage = async () => {
   }
   const posts = await getFollowingPosts({ id: clerkUser?.id });
   return (
-    <div
-      className="w-full flex flex-col space-y-4 py-4 px-2 justify-center items-center"
-      aria-label="Posts of people you follow"
-    >
+    <div className="w-full" aria-label="Posts of people you follow">
       {posts.valid && posts.data?.length ? (
-        posts.data?.map((post) => {
-          return (
-            <PostCard
-              author={post.author}
-              createdAt={post.createdAt}
-              description={post.description}
-              id={post.postID}
-              title={post.title}
-              key={post.postID}
-              userId={post.author.id}
-              following={post.following}
-              bookmarkCount={post.bookmarkCount}
-              bookmarkedBy={post.bookmarkedBy}
-              comments={post.comments}
-              likeCount={post.likeCount}
-              likedBy={post.likedBy}
-            />
-          );
-        })
+        <Posts postsData={posts.data} />
       ) : (
-        <h1 className="text-xl my-6">Nothing to show here...</h1>
+        <h1 className="text-xl my-6 text-center w-full">
+          Nothing to show here...
+        </h1>
       )}
     </div>
   );
