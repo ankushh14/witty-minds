@@ -27,25 +27,53 @@ declare type AddCommentReturn = ActionsReturnType & {
   };
 };
 
-declare type PostCardProps = Omit<Post, "updatedAt"> & {
-  author: Omit<User, "description">;
-  following?: boolean;
+declare type RecentPostsReturn = ActionsReturnType & {
+  data?: {
+    postID: string;
+    author: {
+      id: string;
+      name: string | null;
+      email: string | null;
+      profile: string | null;
+      createdAt: Date;
+      updatedAt: Date;
+    };
+    title: string;
+    description: string;
+    createdAt: Date;
+    likeCount: number;
+    likedBy: User[];
+    bookmarkCount: number;
+    bookmarkedBy: User[];
+    comments: {
+      id: string;
+      userID: string;
+      postID: string;
+      content: string;
+      userProfile: string;
+      createdAt: Date;
+    }[];
+    following?: boolean;
+  }[];
+};
+
+declare type Postsprops = {
+  postID: string;
+  author: {
+    id: string;
+    name: string | null;
+    email: string | null;
+    profile: string | null;
+    createdAt: Date;
+    updatedAt: Date;
+  };
+  title: string;
+  description: string;
+  createdAt: Date;
   likeCount: number;
-  likedBy: {
-    id: string;
-    name: string | null;
-    email: string | null;
-    createdAt: Date;
-    updatedAt: Date;
-  }[];
+  likedBy: User[];
   bookmarkCount: number;
-  bookmarkedBy: {
-    id: string;
-    name: string | null;
-    email: string | null;
-    createdAt: Date;
-    updatedAt: Date;
-  }[];
+  bookmarkedBy: User[];
   comments: {
     id: string;
     userID: string;
@@ -54,6 +82,25 @@ declare type PostCardProps = Omit<Post, "updatedAt"> & {
     userProfile: string;
     createdAt: Date;
   }[];
+  following?: boolean;
+}[];
+
+declare type PostCardProps = Omit<Post, "updatedAt" | "isDeleted"> & {
+  author: Omit<User, "description">;
+  following?: boolean;
+  likeCount: number;
+  likedBy: User[];
+  bookmarkCount: number;
+  bookmarkedBy: User[];
+  comments: {
+    id: string;
+    userID: string;
+    postID: string;
+    content: string;
+    userProfile: string;
+    createdAt: Date;
+  }[];
+  setPosts: React.Dispatch<React.SetStateAction<Postsprops>>;
 };
 
 declare type MutateLikeProps = {
@@ -98,4 +145,9 @@ declare type Profile = {
   followers: User[];
   followersCount: number;
   followingCount: number;
+};
+
+declare type DeletePostprops = {
+  userId: string;
+  id: string;
 };
