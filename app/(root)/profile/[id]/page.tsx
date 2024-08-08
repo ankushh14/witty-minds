@@ -79,7 +79,7 @@ const ProfilePage = async ({ params }: { params: { id: string } }) => {
           href={`/profile/${params.id}/posts`}
           className="flex flex-col justify-center items-center space-y-1 py-1 w-[60px]"
         >
-          <h4>{profile.data?.posts_count}</h4>
+          <h4>{profile.data?.posts.length}</h4>
           <span className="text-xs">Posts</span>
         </Link>
       </section>
@@ -107,30 +107,34 @@ const ProfilePage = async ({ params }: { params: { id: string } }) => {
         <h3 className="text-xl font-semibold w-full pl-3">Posts</h3>
       </section>
       <div className="w-full flex flex-row flex-wrap gap-4 justify-center">
-        {profile.data?.posts.map((post) => {
-          const created = new Intl.DateTimeFormat(undefined, {
-            dateStyle: "short",
-          }).format(new Date(post.createdAt));
-          return (
-            <Link
-              href={{
-                pathname: `/profile/${params.id}/posts`,
-                query: {
-                  post: post.id,
-                },
-              }}
-              key={post.id}
-            >
-              <Card className="w-full max-w-[300px]">
-                <CardHeader>
-                  <CardTitle>{post.title}</CardTitle>
-                  <CardDescription>{created}</CardDescription>
-                </CardHeader>
-                <CardContent>{post.description}</CardContent>
-              </Card>
-            </Link>
-          );
-        })}
+        {profile.data?.posts.length ? (
+          profile.data?.posts.map((post) => {
+            const created = new Intl.DateTimeFormat(undefined, {
+              dateStyle: "short",
+            }).format(new Date(post.createdAt));
+            return (
+              <Link
+                href={{
+                  pathname: `/profile/${params.id}/posts`,
+                  query: {
+                    post: post.id,
+                  },
+                }}
+                key={post.id}
+              >
+                <Card className="w-[300px]">
+                  <CardHeader>
+                    <CardTitle>{post.title}</CardTitle>
+                    <CardDescription>{created}</CardDescription>
+                  </CardHeader>
+                  <CardContent>{post.description}</CardContent>
+                </Card>
+              </Link>
+            );
+          })
+        ) : (
+          <h2 className="w-full text-center text-xl">No posts...</h2>
+        )}
       </div>
     </article>
   );
