@@ -106,7 +106,7 @@ const ProfilePage = async ({ params }: { params: { id: string } }) => {
       <section className="w-full">
         <h3 className="text-xl font-semibold w-full pl-3">Posts</h3>
       </section>
-      <div className="w-full flex flex-row flex-wrap gap-4 justify-center">
+      <div className="w-full flex flex-row flex-wrap gap-4 justify-center pb-6">
         {profile.data?.posts.length ? (
           profile.data?.posts.map((post) => {
             const created = new Intl.DateTimeFormat(undefined, {
@@ -122,12 +122,16 @@ const ProfilePage = async ({ params }: { params: { id: string } }) => {
                 }}
                 key={post.id}
               >
-                <Card className="w-[300px]">
+                <Card className="w-[300px] h-[300px] overflow-hidden">
                   <CardHeader>
                     <CardTitle>{post.title}</CardTitle>
                     <CardDescription>{created}</CardDescription>
                   </CardHeader>
-                  <CardContent>{post.description}</CardContent>
+                  <CardContent>
+                    {post.description.length > 100
+                      ? post.description.substring(0, 100) + " ..."
+                      : post.description}
+                  </CardContent>
                 </Card>
               </Link>
             );
