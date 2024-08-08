@@ -28,7 +28,7 @@ export default function Error({
         <CardContent className="w-full flex flex-col space-y-6">
           <CardTitle className="text-center">{error.name}</CardTitle>
           <CardDescription className="text-center">
-            {error.message}
+            Something went wrong!!
           </CardDescription>
         </CardContent>
         <CardFooter className="w-full flex flex-row space-x-3 justify-center items-center">
