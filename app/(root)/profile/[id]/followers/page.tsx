@@ -1,5 +1,5 @@
 import { getfollowers } from "@/actions/users/profile.actions";
-import FollowComponent from "@/components/profile/FollowerComponent";
+import UserList from "@/components/feed/UserList";
 
 export default async function FollowersPage({
   params,
@@ -12,7 +12,7 @@ export default async function FollowersPage({
   }
   return (
     <div className="w-full p-4">
-      <FollowComponent followers={followers.data!} />
+      <UserList followers={followers.data!} />
     </div>
   );
 }

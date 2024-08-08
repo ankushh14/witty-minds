@@ -1,15 +1,17 @@
 "use client";
 
+import { useUser } from "@clerk/nextjs";
 import { User } from "@prisma/client";
 import React from "react";
 import { useDebounce } from "use-debounce";
+import Userprofile from "../profile/Userprofile";
 import { Input } from "../ui/input";
-import Userprofile from "./Userprofile";
 
-const FollowComponent = ({ followers }: { followers: User[] }) => {
+const UserList = ({ followers }: { followers: User[] }) => {
   const [followersState, setFollowersState] = React.useState(followers);
   const [search, setSearch] = React.useState("");
   const [value] = useDebounce(search, 500);
+  const { user } = useUser();
 
   const searchFunction = React.useCallback(() => {
     setFollowersState(
@@ -24,7 +26,7 @@ const FollowComponent = ({ followers }: { followers: User[] }) => {
   }, [searchFunction]);
 
   return (
-    <div className="w-full flex flex-col space-y-5">
+    <div className="w-full flex flex-col space-y-5 py-4">
       <Input
         type="search"
         placeholder="Enter to search"
@@ -38,7 +40,9 @@ const FollowComponent = ({ followers }: { followers: User[] }) => {
       >
         {followersState.length ? (
           followersState.map((item, index) => {
-            return <Userprofile key={item.id} {...item} />;
+            return (
+              <Userprofile key={item.id} user={item} currentId={user?.id!} />
+            );
           })
         ) : (
           <h1 className="text-xl py-6">Nothing to see here...</h1>
@@ -48,4 +52,4 @@ const FollowComponent = ({ followers }: { followers: User[] }) => {
   );
 };
 
-export default FollowComponent;
+export default UserList;
