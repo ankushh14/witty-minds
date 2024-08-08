@@ -1,36 +1,43 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Witty Minds
 
-## Getting Started
+![NextJS](https://img.shields.io/badge/NextJS-black.svg?style=plastic)
+![TailwindCSS](https://img.shields.io/badge/TailwindCSS-blueviolet.svg?style=plastic)
+![Clerk](https://img.shields.io/badge/Clerk-green.svg?style=plastic)
+![Prisma](https://img.shields.io/badge/Prisma-white.svg?style=plastic)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-orange.svg?style=plastic)
 
-First, run the development server:
+## Introduction
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+![wittyminds-landingPage](https://github.com/user-attachments/assets/072c509c-d48f-47b5-9e6d-e0da984c319b)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Witty Minds – The Hub of Daily Wit and Wisdom! Share Your Thoughts, Spark Conversations, and Connect with Brilliant Minds!
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
 
-## Learn More
+- Witty Minds uses Prisma ORM and PostgreSQL relational database to store user info and posts
+- Witty Minds uses Clerk for user authentication
+- The UI is designed with ShadCN and tailwindCSS
 
-To learn more about Next.js, take a look at the following resources:
+## Features
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- **Clerk Authentication**: The easy solution to Next.js authentication.
+- **Dynamic Chat Interface**: Foster instant communication between users with an interactive chat feature.
+- **Instant Sharing**: Effortlessly share your thoughts and updates with your followers in real-time.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## Screenshots
 
-## Deploy on Vercel
+![Witty Minds discover](https://github.com/user-attachments/assets/1a02f67d-5bb2-4d88-9194-60a6ae208347)
+#### Witty Minds Discover page
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+<br/>
+<br/>
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+![Witty Minds Profile](https://github.com/user-attachments/assets/8bd0a5bf-f916-49ad-9c9f-61680bc8be26)
+#### Witty minds profile page
+
+<br/>
+<br/>
+
+## 📋 LICENSE
+
+Apache 2.0 © [2024](https://github.com/ankushh14/witty-minds/blob/main/LICENSE)
