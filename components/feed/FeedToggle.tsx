@@ -15,7 +15,7 @@ const FeedToggle = () => {
         <TabsList className="w-full">
           <Link href={"/feed"} className="w-full">
             <TabsTrigger value="recent" className="w-full">
-              Recent
+              Discover
             </TabsTrigger>
           </Link>
           <Link href={"/feed/following"} className="w-full">
