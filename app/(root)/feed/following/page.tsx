@@ -1,13 +1,8 @@
 import { getFollowingPosts } from "@/actions/posts/getPosts.actions";
 import Posts from "@/components/feed/Posts";
-import { currentUser } from "@clerk/nextjs/server";
 
 const Followpage = async () => {
-  const clerkUser = await currentUser();
-  if (!clerkUser?.id) {
-    return;
-  }
-  const posts = await getFollowingPosts({ id: clerkUser?.id });
+  const posts = await getFollowingPosts();
   return (
     <div className="w-full" aria-label="Posts of people you follow">
       {posts.valid && posts.data?.length ? (

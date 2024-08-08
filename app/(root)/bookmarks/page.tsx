@@ -1,13 +1,8 @@
 import { getBookmarkedPosts } from "@/actions/posts/getPosts.actions";
 import Posts from "@/components/feed/Posts";
-import { currentUser } from "@clerk/nextjs/server";
 
 const Bookmarkpage = async () => {
-  const clerkUser = await currentUser();
-  if (!clerkUser?.id) {
-    return;
-  }
-  const posts = await getBookmarkedPosts({ id: clerkUser?.id });
+  const posts = await getBookmarkedPosts();
   return (
     <div className="w-full" aria-label="Bookmarked posts">
       {posts.valid && posts.data?.length ? (
