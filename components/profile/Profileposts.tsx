@@ -1,52 +1,17 @@
 "use client";
 
-import { useEffect } from "react";
+import { Postsprops } from "@/types";
+import { useEffect, useState } from "react";
 import PostCard from "../feed/PostCard";
 
 type Props = {
-  posts: {
-    postID: string;
-    author: {
-      id: string;
-      name: string | null;
-      email: string | null;
-      profile: string | null;
-      createdAt: Date;
-      updatedAt: Date;
-    };
-    title: string;
-    description: string;
-    createdAt: Date;
-    likeCount: number;
-    likedBy: {
-      id: string;
-      name: string | null;
-      email: string | null;
-      createdAt: Date;
-      updatedAt: Date;
-    }[];
-    bookmarkCount: number;
-    bookmarkedBy: {
-      id: string;
-      name: string | null;
-      email: string | null;
-      createdAt: Date;
-      updatedAt: Date;
-    }[];
-    comments: {
-      id: string;
-      userID: string;
-      postID: string;
-      content: string;
-      userProfile: string;
-      createdAt: Date;
-    }[];
-    following?: boolean;
-  }[];
+  profileposts: Postsprops;
   focusId?: string;
 };
 
-const Profileposts = ({ posts, focusId }: Props) => {
+const Profileposts = ({ profileposts, focusId }: Props) => {
+  const [posts, setPosts] = useState(profileposts);
+  useEffect(() => setPosts(profileposts), [profileposts]);
   useEffect(() => {
     if (focusId !== undefined && focusId) {
       const focus = document.getElementById(focusId);
@@ -58,7 +23,7 @@ const Profileposts = ({ posts, focusId }: Props) => {
   }, []);
   return (
     <div className="w-full flex flex-col justify-center items-center space-y-4 py-4 px-2">
-      {posts.length &&
+      {posts.length ? (
         posts.map((post) => {
           return (
             <PostCard
@@ -75,9 +40,13 @@ const Profileposts = ({ posts, focusId }: Props) => {
               comments={post.comments}
               likeCount={post.likeCount}
               likedBy={post.likedBy}
+              setPosts={setPosts}
             />
           );
-        })}
+        })
+      ) : (
+        <h2 className="w-full text-xl text-center">Nothing to show here...</h2>
+      )}
     </div>
   );
 };

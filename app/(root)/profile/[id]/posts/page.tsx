@@ -22,7 +22,7 @@ export default async function page({
   }
   return (
     <div className="w-full" aria-label="posts">
-      <Profileposts posts={posts.data!} focusId={searchParams.post} />
+      <Profileposts profileposts={posts.data!} focusId={searchParams.post} />
     </div>
   );
 }
