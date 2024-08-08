@@ -9,30 +9,32 @@ datasource db {
 }
 
 model User {
-  id        String    @id @default(cuid())
-  name      String?
-  email     String?   @unique
-  profile   String?
+  id          String    @id @default(cuid())
+  name        String?
+  email       String?   @unique
+  profile     String?
   description String?
-  createdAt DateTime  @default(now()) @map(name: "created_at")
-  updatedAt DateTime  @updatedAt @map(name: "updated_at")
-  posts     Post[]
-  bookmarks Post[]    @relation("UserBookmarks")
+  createdAt   DateTime  @default(now()) @map(name: "created_at")
+  updatedAt   DateTime  @updatedAt @map(name: "updated_at")
+  posts       Post[]
+  bookmarks   Post[]    @relation("UserBookmarks")
   following   User[]    @relation("UserFollowers")
   followedBy  User[]    @relation("UserFollowers")
-  likes     Post[]    @relation("UserLikes")
-  Comment   Comment[]
+  likes       Post[]    @relation("UserLikes")
+  Comment     Comment[]
 
   @@map(name: "users")
 }
 
 model Post {
-  id           String    @id @default(cuid())
-  title        String
-  description  String
-  createdAt    DateTime  @default(now()) @map(name: "created_at")
-  updatedAt    DateTime  @updatedAt @map(name: "updated_at")
-  userId       String
+  id          String   @id @default(cuid())
+  title       String
+  description String
+  createdAt   DateTime @default(now()) @map(name: "created_at")
+  updatedAt   DateTime @updatedAt @map(name: "updated_at")
+  userId      String
+  isDeleted   Boolean  @default(false)
+
   author       User      @relation(fields: [userId], references: [id])
   bookmarkedBy User[]    @relation("UserBookmarks")
   likedBy      User[]    @relation("UserLikes")
@@ -43,7 +45,7 @@ model Post {
 }
 
 model Comment {
-  id        String    @id @default(cuid())
+  id          String   @id @default(cuid())
   userID      String
   user        User     @relation(fields: [userID], references: [id])
   postID      String
@@ -51,6 +53,7 @@ model Comment {
   content     String
   userProfile String
   createdAt   DateTime @default(now()) @map(name: "created_at")
+  isDeleted   Boolean  @default(false)
 
   @@map("comments")
 }

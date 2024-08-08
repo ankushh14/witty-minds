@@ -1,50 +1,8 @@
 "use server";
 
 import prisma from "@/prisma/prisma";
-import { ActionsReturnType } from "@/types";
+import { RecentPostsReturn } from "@/types";
 import { unstable_cache } from "next/cache";
-
-type RecentPostsReturn = ActionsReturnType & {
-  data?: {
-    postID: string;
-    author: {
-      id: string;
-      name: string | null;
-      email: string | null;
-      profile: string | null;
-      createdAt: Date;
-      updatedAt: Date;
-    };
-    title: string;
-    description: string;
-    createdAt: Date;
-    likeCount: number;
-    likedBy: {
-      id: string;
-      name: string | null;
-      email: string | null;
-      createdAt: Date;
-      updatedAt: Date;
-    }[];
-    bookmarkCount: number;
-    bookmarkedBy: {
-      id: string;
-      name: string | null;
-      email: string | null;
-      createdAt: Date;
-      updatedAt: Date;
-    }[];
-    comments: {
-      id: string;
-      userID: string;
-      postID: string;
-      content: string;
-      userProfile: string;
-      createdAt: Date;
-    }[];
-    following?: boolean;
-  }[];
-};
 
 export const getRecentPosts = unstable_cache(
   async ({ id }: { id: string }): Promise<RecentPostsReturn> => {
@@ -52,6 +10,7 @@ export const getRecentPosts = unstable_cache(
       const limit = 10;
       const data = await prisma.post.findMany({
         take: limit + 1,
+        where: { isDeleted: false },
         orderBy: [
           {
             createdAt: "desc",
@@ -71,7 +30,7 @@ export const getRecentPosts = unstable_cache(
       const posts = await Promise.all(
         data.map(async (item) => {
           const comments = await prisma.comment.findMany({
-            where: { postID: item.id },
+            where: { postID: item.id, isDeleted: false },
           });
 
           const followers = await prisma.user.findFirst({
@@ -125,6 +84,7 @@ export const getFollowingPosts = unstable_cache(
       const data = await prisma.post.findMany({
         take: limit + 1,
         where: {
+          isDeleted: false,
           author: {
             followedBy: {
               some: {
@@ -152,7 +112,7 @@ export const getFollowingPosts = unstable_cache(
       const posts = await Promise.all(
         data.map(async (item) => {
           const comments = await prisma.comment.findMany({
-            where: { postID: item.id },
+            where: { postID: item.id, isDeleted: false },
           });
 
           const followers = await prisma.user.findFirst({
@@ -204,6 +164,7 @@ export const getBookmarkedPosts = unstable_cache(
     try {
       const data = await prisma.post.findMany({
         where: {
+          isDeleted: false,
           bookmarkedBy: {
             some: {
               id: id,
@@ -229,7 +190,7 @@ export const getBookmarkedPosts = unstable_cache(
       const posts = await Promise.all(
         data.map(async (item) => {
           const comments = await prisma.comment.findMany({
-            where: { postID: item.id },
+            where: { postID: item.id, isDeleted: false },
           });
 
           const followers = await prisma.user.findFirst({
