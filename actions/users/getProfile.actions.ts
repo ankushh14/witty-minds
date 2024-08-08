@@ -18,7 +18,7 @@ export const getProfile = unstable_cache(
       include: { _count: true, followedBy: true },
     });
     const posts = await prisma.post.findMany({
-      where: { author: { id: user?.id } },
+      where: { author: { id: user?.id }, isDeleted: false },
       orderBy: {
         createdAt: "desc",
       },

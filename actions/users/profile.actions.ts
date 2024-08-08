@@ -1,7 +1,7 @@
 "use server";
 
 import prisma from "@/prisma/prisma";
-import { ActionsReturnType } from "@/types";
+import { ActionsReturnType, RecentPostsReturn } from "@/types";
 import { User } from "@prisma/client";
 import { unstable_cache } from "next/cache";
 
@@ -71,48 +71,6 @@ export const getfollowing = unstable_cache(
   }
 );
 
-type RecentPostsReturn = ActionsReturnType & {
-  data?: {
-    postID: string;
-    author: {
-      id: string;
-      name: string | null;
-      email: string | null;
-      profile: string | null;
-      createdAt: Date;
-      updatedAt: Date;
-    };
-    title: string;
-    description: string;
-    createdAt: Date;
-    likeCount: number;
-    likedBy: {
-      id: string;
-      name: string | null;
-      email: string | null;
-      createdAt: Date;
-      updatedAt: Date;
-    }[];
-    bookmarkCount: number;
-    bookmarkedBy: {
-      id: string;
-      name: string | null;
-      email: string | null;
-      createdAt: Date;
-      updatedAt: Date;
-    }[];
-    comments: {
-      id: string;
-      userID: string;
-      postID: string;
-      content: string;
-      userProfile: string;
-      createdAt: Date;
-    }[];
-    following?: boolean;
-  }[];
-};
-
 export const getuserPosts = unstable_cache(
   async ({
     id,
@@ -123,7 +81,7 @@ export const getuserPosts = unstable_cache(
   }): Promise<RecentPostsReturn> => {
     try {
       const data = await prisma.post.findMany({
-        where: { author: { id: id } },
+        where: { author: { id: id }, isDeleted: false },
         orderBy: [
           {
             createdAt: "desc",
@@ -143,7 +101,7 @@ export const getuserPosts = unstable_cache(
       const posts = await Promise.all(
         data.map(async (item) => {
           const comments = await prisma.comment.findMany({
-            where: { postID: item.id },
+            where: { postID: item.id, isDeleted: false },
           });
 
           const followers = await prisma.user.findFirst({
