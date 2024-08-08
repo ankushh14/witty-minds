@@ -49,7 +49,10 @@ const CreatePostModal = () => {
 
   return (
     <Dialog open={dialog} onOpenChange={setDialog}>
-      <DialogTrigger>
+      <DialogTrigger
+        tabIndex={-1}
+        className="fixed right-3 bottom-8 md:right-16 md:bottom-16"
+      >
         <CreatePostButton />
       </DialogTrigger>
       <DialogContent
