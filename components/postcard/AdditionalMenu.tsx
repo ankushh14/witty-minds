@@ -71,7 +71,7 @@ const AdditionalMenu = ({
           <AlertDialogTrigger>
             {" "}
             <div className={buttonVariants({ variant: "ghost" })}>
-              <OctagonX size={17} fill="red" className="w-full mr-1" />
+              <OctagonX size={17} fill="red" className="mr-1" />
               Delete post
             </div>
           </AlertDialogTrigger>
