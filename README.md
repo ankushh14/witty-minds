@@ -21,7 +21,6 @@ Witty Minds – The Hub of Daily Wit and Wisdom! Share Your Thoughts, Spark Conv
 ## Features
 
 - **Clerk Authentication**: The easy solution to Next.js authentication.
-- **Dynamic Chat Interface**: Foster instant communication between users with an interactive chat feature.
 - **Instant Sharing**: Effortlessly share your thoughts and updates with your followers in real-time.
 
 ## Screenshots
