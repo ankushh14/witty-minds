@@ -15,8 +15,10 @@ const Posts = ({
   useEffect(() => setPosts(postsData), [postsData]);
   return (
     <div
-      className={`w-full flex ${
-        flexWrap ? "flex-wrap gap-4" : "flex-col space-y-4"
+      className={`w-full  ${
+        flexWrap
+          ? "grid grid-cols-1 md:grid-cols-2 gap-3 place-items-center"
+          : "flex flex-col space-y-4"
       }  py-4 px-2 justify-center items-center`}
     >
       {posts.map((post) => {
@@ -36,6 +38,7 @@ const Posts = ({
             likeCount={post.likeCount}
             likedBy={post.likedBy}
             setPosts={setPosts}
+            images={post.images!}
           />
         );
       })}

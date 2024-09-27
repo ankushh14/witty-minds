@@ -34,12 +34,14 @@ export const getRecentPosts = async (): Promise<RecentPostsReturn> => {
             title: true,
             createdAt: true,
             Comment: true,
+            images: true,
           },
         });
       },
       ["recent"],
       {
         tags: ["posts"],
+        revalidate: 10,
       }
     )();
     const posts = data.map((item) => {
@@ -48,7 +50,6 @@ export const getRecentPosts = async (): Promise<RecentPostsReturn> => {
       );
 
       const { followedBy, ...requiredAuthorData } = item.author;
-
       return {
         postID: item.id,
         author: requiredAuthorData,
@@ -61,6 +62,7 @@ export const getRecentPosts = async (): Promise<RecentPostsReturn> => {
         bookmarkedBy: item.bookmarkedBy,
         comments: item.Comment,
         following: following,
+        images: item.images,
       };
     });
     return {
@@ -114,12 +116,14 @@ export const getFollowingPosts = async (): Promise<RecentPostsReturn> => {
             title: true,
             createdAt: true,
             Comment: true,
+            images: true,
           },
         });
       },
       ["following"],
       {
         tags: ["posts"],
+        revalidate: 10,
       }
     )();
     const posts = data.map((item) => {
@@ -140,6 +144,7 @@ export const getFollowingPosts = async (): Promise<RecentPostsReturn> => {
         bookmarkedBy: item.bookmarkedBy,
         comments: item.Comment,
         following: following,
+        images: item.images,
       };
     });
     return {
@@ -191,6 +196,7 @@ export const getBookmarkedPosts = async (): Promise<RecentPostsReturn> => {
             title: true,
             createdAt: true,
             Comment: true,
+            images: true,
           },
         }),
       ["bookmarks"],
@@ -217,6 +223,7 @@ export const getBookmarkedPosts = async (): Promise<RecentPostsReturn> => {
         bookmarkedBy: item.bookmarkedBy,
         comments: item.Comment,
         following: following,
+        images: item.images,
       };
     });
     return {
