@@ -23,8 +23,8 @@ const EmblaCarousel = ({ images }: { images: string[] }) => {
               className={styles["embla__slide__img"]}
               src={item}
               alt={item}
-              width={1000}
-              height={1000}
+              width={3000}
+              height={3000}
             />
           </div>
         ))}
