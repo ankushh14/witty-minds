@@ -21,6 +21,7 @@ import LikeButton from "../postcard/LikeButton";
 import Postdetails from "../postcard/Postdetails";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { Button } from "../ui/button";
+import EmblaCarousel from "../ui/carousel/carousel";
 
 const PostCard = (props: PostCardProps) => {
   const created = new Intl.DateTimeFormat(undefined, {
@@ -55,7 +56,6 @@ const PostCard = (props: PostCardProps) => {
       }
     }
   };
-
   return (
     <Card className={`w-full max-w-[450px] scroll-mt-16`} id={props.id}>
       <CardHeader className="flex flex-row justify-center items-center">
@@ -101,6 +101,7 @@ const PostCard = (props: PostCardProps) => {
       </CardHeader>
       <CardContent className="w-full flex flex-col space-y-6">
         <CardTitle>{props.title}</CardTitle>
+        <EmblaCarousel images={props.images} />
         <CardDescription>{props.description}</CardDescription>
       </CardContent>
       <Postdetails
