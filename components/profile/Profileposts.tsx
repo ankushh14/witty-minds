@@ -41,6 +41,7 @@ const Profileposts = ({ profileposts, focusId }: Props) => {
               likeCount={post.likeCount}
               likedBy={post.likedBy}
               setPosts={setPosts}
+              images={post.images!}
             />
           );
         })

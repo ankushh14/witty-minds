@@ -54,6 +54,7 @@ declare type RecentPostsReturn = ActionsReturnType & {
       createdAt: Date;
     }[];
     following?: boolean;
+    images?: string[];
   }[];
 };
 
@@ -83,6 +84,7 @@ declare type Postsprops = {
     createdAt: Date;
   }[];
   following?: boolean;
+  images?: string[];
 }[];
 
 declare type PostCardProps = Omit<Post, "updatedAt" | "isDeleted"> & {

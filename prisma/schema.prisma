@@ -39,6 +39,7 @@ model Post {
   bookmarkedBy User[]    @relation("UserBookmarks")
   likedBy      User[]    @relation("UserLikes")
   Comment      Comment[]
+  images       String[]
 
   @@unique([userId, createdAt])
   @@map("posts")

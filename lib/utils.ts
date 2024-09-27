@@ -24,3 +24,13 @@ export const createToast = ({
     description,
   });
 };
+
+export const getFolderNameFromUrl = (url: string) => {
+  const urlObj = new URL(url);
+  const path = decodeURIComponent(urlObj.pathname);
+  const parts = path.split("/");
+  if (parts.length > 2) {
+    return parts.slice(2, parts.length - 1).join("/");
+  }
+  return null;
+};

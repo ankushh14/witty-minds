@@ -100,6 +100,7 @@ export const getuserPosts = async ({
         title: true,
         createdAt: true,
         Comment: true,
+        images: true,
       },
     });
     const posts = data.map((item) => {
@@ -119,6 +120,7 @@ export const getuserPosts = async ({
         bookmarkedBy: item.bookmarkedBy,
         comments: item.Comment,
         following: following,
+        images: item.images,
       };
     });
     return {
