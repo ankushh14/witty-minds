@@ -3,47 +3,51 @@
 import prisma from "@/prisma/prisma";
 import { RecentPostsReturn } from "@/types";
 import { auth } from "@clerk/nextjs/server";
-import { unstable_cache } from "next/cache";
 
-export const getRecentPosts = async (): Promise<RecentPostsReturn> => {
+export type getPosts = {
+  cursor?: string;
+};
+
+export const getRecentPosts = async ({
+  cursor,
+}: getPosts): Promise<RecentPostsReturn & getPosts> => {
   const { userId } = auth();
   if (!userId) {
     throw new Error("Unauthorized user!");
   }
   try {
-    const data = await unstable_cache(
-      async () => {
-        return await prisma.post.findMany({
-          where: { isDeleted: false },
-          orderBy: [
-            {
-              createdAt: "desc",
-            },
-          ],
-          select: {
-            _count: true,
-            likedBy: true,
-            bookmarkedBy: true,
-            author: {
-              include: {
-                followedBy: true,
-              },
-            },
-            description: true,
-            id: true,
-            title: true,
-            createdAt: true,
-            Comment: true,
-            images: true,
+    const data = await prisma.post.findMany({
+      where: { isDeleted: false },
+      cursor: cursor
+        ? {
+            id: cursor,
+          }
+        : undefined,
+      take: 5,
+      skip: cursor ? 1 : undefined,
+      orderBy: [
+        {
+          createdAt: "desc",
+        },
+      ],
+      select: {
+        _count: true,
+        likedBy: true,
+        bookmarkedBy: true,
+        author: {
+          include: {
+            followedBy: true,
           },
-        });
+        },
+        description: true,
+        id: true,
+        title: true,
+        createdAt: true,
+        Comment: true,
+        images: true,
       },
-      ["recent"],
-      {
-        tags: ["posts"],
-        revalidate: 10,
-      }
-    )();
+    });
+    const myCursor = data[data.length - 1].id;
     const posts = data.map((item) => {
       const following = item?.author.followedBy.some(
         (follower) => follower.id === userId
@@ -69,6 +73,7 @@ export const getRecentPosts = async (): Promise<RecentPostsReturn> => {
       message: "Fetch posts succesful!",
       valid: true,
       data: posts,
+      cursor: myCursor,
     };
   } catch (error) {
     return {
@@ -78,54 +83,55 @@ export const getRecentPosts = async (): Promise<RecentPostsReturn> => {
   }
 };
 
-export const getFollowingPosts = async (): Promise<RecentPostsReturn> => {
+export const getFollowingPosts = async ({
+  cursor,
+}: getPosts): Promise<RecentPostsReturn & getPosts> => {
   const { userId } = auth();
   if (!userId) {
     throw new Error("Unauthorized user!");
   }
   try {
-    const data = await unstable_cache(
-      async () => {
-        return await prisma.post.findMany({
-          where: {
-            isDeleted: false,
-            author: {
-              followedBy: {
-                some: {
-                  id: userId,
-                },
-              },
+    const data = await prisma.post.findMany({
+      where: {
+        isDeleted: false,
+        author: {
+          followedBy: {
+            some: {
+              id: userId,
             },
           },
-          orderBy: [
-            {
-              createdAt: "desc",
-            },
-          ],
-          select: {
-            _count: true,
-            likedBy: true,
-            bookmarkedBy: true,
-            author: {
-              include: {
-                followedBy: true,
-              },
-            },
-            description: true,
-            id: true,
-            title: true,
-            createdAt: true,
-            Comment: true,
-            images: true,
-          },
-        });
+        },
       },
-      ["following"],
-      {
-        tags: ["posts"],
-        revalidate: 10,
-      }
-    )();
+      cursor: cursor
+        ? {
+            id: cursor,
+          }
+        : undefined,
+      take: 5,
+      skip: cursor ? 1 : undefined,
+      orderBy: [
+        {
+          createdAt: "desc",
+        },
+      ],
+      select: {
+        _count: true,
+        likedBy: true,
+        bookmarkedBy: true,
+        author: {
+          include: {
+            followedBy: true,
+          },
+        },
+        description: true,
+        id: true,
+        title: true,
+        createdAt: true,
+        Comment: true,
+        images: true,
+      },
+    });
+    const myCursor = data[data.length - 1].id;
     const posts = data.map((item) => {
       const following = item.author.followedBy.some(
         (follower) => follower.id === userId
@@ -151,6 +157,7 @@ export const getFollowingPosts = async (): Promise<RecentPostsReturn> => {
       message: "Fetch posts succesful!",
       valid: true,
       data: posts,
+      cursor: myCursor,
     };
   } catch (error) {
     return {
@@ -160,50 +167,54 @@ export const getFollowingPosts = async (): Promise<RecentPostsReturn> => {
   }
 };
 
-export const getBookmarkedPosts = async (): Promise<RecentPostsReturn> => {
+export const getBookmarkedPosts = async ({
+  cursor,
+}: getPosts): Promise<RecentPostsReturn & getPosts> => {
   const { userId } = auth();
   if (!userId) {
     throw new Error("Unauthorized user!");
   }
   try {
-    const data = await unstable_cache(
-      async () =>
-        await prisma.post.findMany({
-          where: {
-            isDeleted: false,
-            bookmarkedBy: {
-              some: {
-                id: userId,
-              },
-            },
+    const data = await prisma.post.findMany({
+      where: {
+        isDeleted: false,
+        bookmarkedBy: {
+          some: {
+            id: userId,
           },
-          orderBy: [
-            {
-              createdAt: "desc",
-            },
-          ],
-          select: {
-            _count: true,
-            likedBy: true,
-            bookmarkedBy: true,
-            author: {
-              include: {
-                followedBy: true,
-              },
-            },
-            description: true,
-            id: true,
-            title: true,
-            createdAt: true,
-            Comment: true,
-            images: true,
+        },
+      },
+      cursor: cursor
+        ? {
+            id: cursor,
+          }
+        : undefined,
+      take: 5,
+      skip: cursor ? 1 : undefined,
+      orderBy: [
+        {
+          createdAt: "desc",
+        },
+      ],
+      select: {
+        _count: true,
+        likedBy: true,
+        bookmarkedBy: true,
+        author: {
+          include: {
+            followedBy: true,
           },
-        }),
-      ["bookmarks"],
-      {
-        tags: ["posts"],
-      }
-    )();
+        },
+        description: true,
+        id: true,
+        title: true,
+        createdAt: true,
+        Comment: true,
+        images: true,
+      },
+    });
+    const myCursor = data[data.length - 1].id;
+
     const posts = data.map((item) => {
       const following = item.author.followedBy.some(
         (follower) => follower.id === userId
@@ -230,6 +241,7 @@ export const getBookmarkedPosts = async (): Promise<RecentPostsReturn> => {
       message: "Fetch posts succesful!",
       valid: true,
       data: posts,
+      cursor: myCursor,
     };
   } catch (error) {
     return {
