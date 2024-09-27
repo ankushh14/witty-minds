@@ -44,7 +44,10 @@ const CommentsButton = ({
           <span className="inline">{commentsCount}</span>
         </div>
       </PopoverTrigger>
-      <PopoverContent className="w-[300px] md:w-[450px]" aria-label="comments">
+      <PopoverContent
+        className="w-[300px] sm:w-[450px] md:w-[600px] xl:w-[950px]"
+        aria-label="comments"
+      >
         <Comments
           commentsDb={commentsDb}
           setCommentsCount={setCommentsCount}
