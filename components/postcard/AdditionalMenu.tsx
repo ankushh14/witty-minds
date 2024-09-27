@@ -87,6 +87,7 @@ const AdditionalMenu = ({
               <AlertDialogCancel>Cancel</AlertDialogCancel>
               <Button
                 variant={"secondary"}
+                className="!bg-red-700"
                 disabled={isLoading}
                 aria-disabled={isLoading}
                 onClick={handleDelete}
