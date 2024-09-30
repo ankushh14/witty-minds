@@ -9,6 +9,9 @@ const Signup = () => {
     <SignUp
       appearance={{
         baseTheme: resolvedTheme === "dark" ? dark : undefined,
+        elements: {
+          rootBox: "p-4",
+        },
       }}
     />
   );
