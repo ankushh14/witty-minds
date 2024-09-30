@@ -56,8 +56,8 @@ export async function POST(req: Request) {
     const user = {
       clerkUserId: id,
       email: email_addresses[0].email_address,
-      ...(first_name ? { firstName: first_name } : {}),
-      ...(last_name ? { lastName: last_name } : {}),
+      ...(first_name ? { firstName: first_name } : { firstName: "" }),
+      ...(last_name ? { lastName: last_name } : { lastName: "" }),
       ...(image_url ? { imageUrl: image_url } : {}),
     };
     await prisma.user.create({
